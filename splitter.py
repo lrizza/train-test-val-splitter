@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+import argparse
 
 
 def split_dataset(input_folder, train_ratio, val_ratio, test_ratio):
@@ -64,10 +65,38 @@ def split_dataset(input_folder, train_ratio, val_ratio, test_ratio):
 
 
 if __name__ == "__main__":
-    # Example usage
-    input_folder = "/home/lrizza/Documents/Datasets/montauk/B"
-    train_ratio = 0.8
-    val_ratio = 0.1
-    test_ratio = 0.1
+    parser = argparse.ArgumentParser(
+        description="Split dataset into training, validation, and testing sets."
+    )
+    parser.add_argument(
+        "-i",
+        "--input_folder",
+        type=str,
+        required=True,
+        help="Path to the input folder containing images.",
+    )
+    parser.add_argument(
+        "-t",
+        "--train_ratio",
+        type=float,
+        required=True,
+        help="Ratio of training set (e.g., 0.8).",
+    )
+    parser.add_argument(
+        "-v",
+        "--val_ratio",
+        type=float,
+        required=True,
+        help="Ratio of validation set (e.g., 0.1).",
+    )
+    parser.add_argument(
+        "-e",
+        "--test_ratio",
+        type=float,
+        required=True,
+        help="Ratio of testing set (e.g., 0.1).",
+    )
 
-    split_dataset(input_folder, train_ratio, val_ratio, test_ratio)
+    args = parser.parse_args()
+
+    split_dataset(args.input_folder, args.train_ratio, args.val_ratio, args.test_ratio)
