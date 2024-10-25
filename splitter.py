@@ -4,7 +4,11 @@ import shutil
 import argparse
 
 
-def split_dataset(input_folder, train_ratio, val_ratio, test_ratio):
+def split_dataset(input_folder, train_ratio, val_ratio, test_ratio, seed=None):
+    # Set the seed for reproducibility
+    if seed is not None:
+        random.seed(seed)
+
     # Ensure that the ratios sum up to 1
     total_ratio = train_ratio + val_ratio + test_ratio
     if abs(total_ratio - 1.0) > 1e-6:
@@ -96,7 +100,14 @@ if __name__ == "__main__":
         required=True,
         help="Ratio of testing set (e.g., 0.1).",
     )
+    parser.add_argument(
+        "-s",
+        "--seed",
+        type=int,
+        default=None,
+        help="Random seed for reproducibility.",
+    )
 
     args = parser.parse_args()
 
-    split_dataset(args.input_folder, args.train_ratio, args.val_ratio, args.test_ratio)
+    split_dataset(args.input_folder, args.train_ratio, args.val_ratio, args.test_ratio, args.seed)

@@ -1,5 +1,5 @@
 ## Overview
-Simple utility script to split a folder of images into training, testing and validation according to a specified ratio. Images in the provided input folder are moved into train,test and eval folders created in the input directory.
+Simple utility script to split a folder of images into training, testing and validation according to a specified ratio. Images in the provided input folder are moved into train, test and eval folders created in the input directory with a seed for reproducibility.
 
 ## Usage
 No dependencies needed, to run:
@@ -18,8 +18,9 @@ options:
                         Ratio of validation set (e.g., 0.1).
   -e TEST_RATIO, --test_ratio TEST_RATIO
                         Ratio of testing set (e.g., 0.1).
+  -s SEED, --seed SEED  Random seed for reproducibility.
 ```
 ## Example Usage
 Split provided directory into [0.7, 0.2, 0.1] training/testing/validation sets.
 
-`python splitter.py -i "data/in" -t 0.8 -v 0.1 -e 0.2`
+`python splitter.py -i "data/in" -t 0.7 -v 0.1 -e 0.2 -s 42`
